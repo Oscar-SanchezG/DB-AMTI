@@ -1,0 +1,24 @@
+DROP procedure IF EXISTS login_user;
+DELIMITER $$
+CREATE PROCEDURE login_user(IN useri VARCHAR(50),
+							IN email VARCHAR(50))
+BEGIN
+    DECLARE WITH_ERRORS BOOL DEFAULT FALSE;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    BEGIN
+		SET WITH_ERRORS = TRUE;
+        
+		
+    END;
+	IF WITH_ERRORS THEN
+		ROLLBACK;
+	ELSE 
+    SELECT * 
+    FROM useri 
+    WHERE useri.email=email AND useri.useri=useri; 
+		COMMIT;
+	END IF;
+    
+END$$
+
+DELIMITER ;
